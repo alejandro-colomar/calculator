@@ -29,53 +29,66 @@
 /******************************************************************************
  ******* main *****************************************************************
  ******************************************************************************/
-double input_a (void)
+void	input	(double *a, int *sel, double *b)
+{
+	*a	= input_num();
+	*sel	= input_operator();
+	*b	= input_num();
+	next_op	= INPUT_A;
+}
+
+
+double input_num (void)
 {
 	char	str [BUFF_SIZE];
 	char	num [10];
-	double	a;
+	double	x;
 
-	a	= 0;
+	x	= 0;
 
 	fgets(str, BUFF_SIZE, stdin);
 	sscanf(str, " %c", &num[0]);
-	sscanf(str, " %*c%c", &num[1]);
-	sscanf(str, " %*2c%c", &num[2]);
 
 	if (isalpha(num[0])) {
+		sscanf(str, " %*c%c", &num[1]);
+		sscanf(str, " %*2c%c", &num[2]);
+		sscanf(str, " %*3c%c", &num[3]);
+		sscanf(str, " %*4c%c", &num[4]);
+		sscanf(str, " %*5c%c", &num[5]);
+		sscanf(str, " %*6c%c", &num[6]);
+
 		switch (num[0]) {
 		case 'e':
-			if (isalpha(num[1])) {
-				a	= 0;
+			if (isalpha(num[1]) || isdigit(num[1])) {
+				x	= 0;
 				printf("error\n");
 			} else {
-				a	= M_E;
+				x	= M_E;
 			}
 			break;
 		case 'p':
 			switch (num[1]) {
 			case 'i':
-				if (isalpha(num[2])) {
-					a	= 0;
+				if (isalpha(num[2]) || isdigit(num[2])) {
+					x	= 0;
 					printf("error\n");
 				} else {
-					a	= M_PI;
+					x	= M_PI;
 				}
 				break;
 			default:
-				a	= 0;
+				x	= 0;
 				printf("error\n");
 				break;
 			}
-			break;
 		}
 	} else if (isdigit(num[0])) {
-		sscanf(str, " %lf ", &a);
+		sscanf(str, " %lf ", &x);
 	} else {
 		printf("error\n");
 	}
 
-	return	a;
+	return	x;
 }
 
 int input_operator (void)
@@ -182,7 +195,8 @@ double input_b (int sel)
 	case OPERATION_MULT:
 	case OPERATION_POW:
 	case OPERATION_POW10:
-		b	= input_a();
+		fgets(str, BUFF_SIZE, stdin);
+		sscanf(str, " %lf ", &b);
 		break;
 
 	case OPERATION_SQRT:

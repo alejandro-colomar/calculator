@@ -30,14 +30,7 @@ void calc_loop (void)
 	clr	= true;
 
 	do {
-		if (clr) {
-			a	= input_a();
-			clr	= false;
-		}
-
-		sel	= input_operator();
-
-		b	= input_b(sel);
+		input(&a, &sel, &b);
 
 		ans	= calc_results(a, b, sel, &clr);
 		print_results(ans, sel);
