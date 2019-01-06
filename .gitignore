@@ -1,0 +1,5 @@
+*.o
+*.s
+*.a
+*calculadora
+*calculator
